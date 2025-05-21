@@ -19,22 +19,19 @@ main_layout.addLayout(lay1)
 
 but_proc = QPushButton('%')
 but_proc.setFont(QFont('Arial', 15))
-but_ce = QPushButton('CE')
-but_ce.setFont(QFont('Arial', 15))
 but_c = QPushButton('C')
 but_c.setFont(QFont('Arial', 15))
 but_del = QPushButton('DEL')
 but_del.setFont(QFont('Arial', 15))
 lay2 = QHBoxLayout()
 lay2.addWidget(but_proc)
-lay2.addWidget(but_ce)
 lay2.addWidget(but_c)
 lay2.addWidget(but_del)
 main_layout.addLayout(lay2)
 
 but_1x = QPushButton('1/x')
 but_1x.setFont(QFont('Arial', 15))
-but_x2 = QPushButton('x2')
+but_x2 = QPushButton('x^2')
 but_x2.setFont(QFont('Arial', 15))
 but_kor = QPushButton('√x')
 but_kor.setFont(QFont('Arial', 15))
@@ -96,14 +93,11 @@ but_sign = QPushButton('+/-')
 but_sign.setFont(QFont('Arial', 15))
 but_0 = QPushButton('0')
 but_0.setFont(QFont('Arial', 15))
-but_drob = QPushButton(',')
-but_drob.setFont(QFont('Arial', 15))
 but_ravno = QPushButton('=')
 but_ravno.setFont(QFont('Arial', 15))
 lay7 = QHBoxLayout()
 lay7.addWidget(but_sign)
 lay7.addWidget(but_0)
-lay7.addWidget(but_drob)
 lay7.addWidget(but_ravno)
 main_layout.addLayout(lay7)
 
@@ -131,7 +125,7 @@ def number(a):
         else:
             num1 += a
             label.setText(str(num1))
-            if len(num1) >= 8:
+            if len(num1) >= 7:
                 num1 = num1[:-1]
                 label.setText(str(num1))
     if phase == 2:    
@@ -141,7 +135,7 @@ def number(a):
         else:
             num2 += a
             label.setText(str(num2))
-            if len(num2) >= 8:
+            if len(num2) >= 7:
                 num2 = num2[:-1]
                 label.setText(str(num2))
 def one():
@@ -181,27 +175,111 @@ def plus():
     global action
     action = 'plus'
     label.setText('')
-    print(num1)
 def ravno():
     global num2
     global num1
     global phase
     phase = 1
-    print(num2)
     if action == 'plus':
         if num1 == '': 
             num1 = 0
         if num2 == '': 
             num2 = 0
-            label.setText('')
         result = int(num1) + int(num2)
         label.setText(str(result))
         num1 = ''
         num2 = ''
-        
+    if action == 'minus':
+        if num1 == '': 
+            num1 = 0
+        if num2 == '': 
+            num2 = 0
+        result = int(num1) - int(num2)
+        label.setText(str(result))
+        num1 = ''
+        num2 = ''
+    if action == 'umnojenie':
+        if num1 == '': 
+            num1 = 0
+        if num2 == '': 
+            num2 = 0
+        result = int(num1) * int(num2)
+        label.setText(str(result))
+        num1 = ''
+        num2 = ''
+    if action == 'delenie':
+        if num1 == '': 
+            num1 = 0
+        if num2 == '': 
+            num2 = 1
+        if num2 == '0': 
+            num2 = 1
+        result = int(num1) / int(num2)
+        label.setText(str(result))
+        num1 = ''
+        num2 = ''
+    if action == 'stepen':
+        if num1 == '': 
+            num1 = 0
+        result = int(num1) ** 2
+        label.setText(str(result))
+        num1 = ''
+    if action == 'koren':
+        if num1 == '': 
+            num1 = 0
+        if int(num1) < 0:
+            num1 = int(num1) * -1
+        result = int(num1) ** 0.5
+        label.setText(str(result))
+        num1 = ''
 
-
-
+def minus():
+    global phase
+    phase = 2
+    global action
+    action = 'minus'
+    label.setText('')
+def umnojenie():
+    global phase
+    phase = 2
+    global action
+    action = 'umnojenie'
+    label.setText('')       
+def delenie():
+    global phase
+    phase = 2
+    global action
+    action = 'delenie'
+def stepen():
+    global action
+    action = 'stepen'
+    ravno()
+def koren():
+    global action
+    action = 'koren'
+    ravno()
+def sign():
+    global num1
+    global num2
+    if type(num1) == float:
+        round(num1)
+        print(num1)
+    if type(num2) == float:
+        round(num2)
+    if phase == 1:
+        num1 = int(num1) * -1
+        label.setText(str(num1))
+    if phase == 2:
+        num2 = int(num2) * -1
+        label.setText(str(num2))
+def c():
+    global num1
+    global num2
+    global phase
+    num1 = ''
+    num2 = ''
+    phase = 1 
+    label.setText('')
 
 
 but_1.clicked.connect(one)
@@ -216,6 +294,13 @@ but_9.clicked.connect(nine)
 but_0.clicked.connect(zero)
 but_del.clicked.connect(delete)
 but_plus.clicked.connect(plus)
+but_minus.clicked.connect(minus)
+but_umn.clicked.connect(umnojenie)
+but_razdel.clicked.connect(delenie)
+but_x2.clicked.connect(stepen)
+but_kor.clicked.connect(koren)
+but_sign.clicked.connect(sign)
+but_c.clicked.connect(c)
 but_ravno.clicked.connect(ravno)
 
 win.setLayout(main_layout)
