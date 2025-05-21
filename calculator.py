@@ -29,8 +29,6 @@ lay2.addWidget(but_c)
 lay2.addWidget(but_del)
 main_layout.addLayout(lay2)
 
-but_1x = QPushButton('1/x')
-but_1x.setFont(QFont('Arial', 15))
 but_x2 = QPushButton('x^2')
 but_x2.setFont(QFont('Arial', 15))
 but_kor = QPushButton('√x')
@@ -38,7 +36,6 @@ but_kor.setFont(QFont('Arial', 15))
 but_razdel = QPushButton('÷')
 but_razdel.setFont(QFont('Arial', 15))
 lay3 = QHBoxLayout()
-lay3.addWidget(but_1x)
 lay3.addWidget(but_x2)
 lay3.addWidget(but_kor)
 lay3.addWidget(but_razdel)
@@ -229,9 +226,17 @@ def ravno():
             num1 = 0
         if int(num1) < 0:
             num1 = int(num1) * -1
-        result = int(num1) ** 0.5
+        num1 = int(num1) ** 0.5
+        label.setText(str(num1))
+    if action == 'procent':
+        if num1 == '': 
+            num1 = 0
+        if num2 == '': 
+            num2 = 0
+        result = (int(num1) * int(num2)) / 100
         label.setText(str(result))
         num1 = ''
+        num2 = ''
 
 def minus():
     global phase
@@ -250,6 +255,7 @@ def delenie():
     phase = 2
     global action
     action = 'delenie'
+    label.setText('') 
 def stepen():
     global action
     action = 'stepen'
@@ -261,11 +267,6 @@ def koren():
 def sign():
     global num1
     global num2
-    if type(num1) == float:
-        round(num1)
-        print(num1)
-    if type(num2) == float:
-        round(num2)
     if phase == 1:
         num1 = int(num1) * -1
         label.setText(str(num1))
@@ -280,7 +281,13 @@ def c():
     num2 = ''
     phase = 1 
     label.setText('')
-
+def procent():
+    global phase
+    phase = 2
+    global action
+    action = 'procent'
+    label.setText('')
+    
 
 but_1.clicked.connect(one)
 but_2.clicked.connect(two)
@@ -301,6 +308,7 @@ but_x2.clicked.connect(stepen)
 but_kor.clicked.connect(koren)
 but_sign.clicked.connect(sign)
 but_c.clicked.connect(c)
+but_proc.clicked.connect(procent)
 but_ravno.clicked.connect(ravno)
 
 win.setLayout(main_layout)
