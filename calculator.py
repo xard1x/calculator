@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
-app = QApplication([]) # создание окна
+app = QApplication([])
 win = QWidget()
 win.setWindowTitle('Калькулятор') 
 win.setMinimumSize(300, 350)
@@ -114,36 +114,102 @@ global num2
 num2 = '' 
 
 global phase
-phase = 2
+phase = 1
 
-def one():
+global action
+action = ''
+
+def number(a):
     global phase
     global label
     global num1
     global num2
     if phase == 1:    
         if num1 == '':
-            num1 = '1'
+            num1 = a
             label.setText(str(num1))
         else:
-            num1 += '1'
+            num1 += a
             label.setText(str(num1))
-            if len(num1) >= 14:
+            if len(num1) >= 10:
                 num1 = num1[:-1]
-                print(num1)
     if phase == 2:    
         if num2 == '':
-            num2 = '1'
+            num2 = a
             label.setText(str(num2))
         else:
-            num2 += '1'
+            num2 += a
             label.setText(str(num2))
-            if len(num2) >= 14:
+            if len(num2) >= 10:
                 num2 = num2[:-1]
-                print(num2)
+def one():
+    number('1')
+def two():
+    number('2')
+def three():
+    number('3')
+def four():
+    number('4')
+def five():
+    number('5')
+def six():
+    number('6')
+def seven():
+    number('7')
+def eight():
+    number('8')
+def nine():
+    number('9')
+def zero():
+    number('0')
+def delete():
+    global phase
+    global label
+    global num1
+    global num2
+    if phase == 1:    
+        num1 = num1[:-1]
+        label.setText(str(num1))
+    if phase == 2:
+        num2 = num2[:-1]
+        label.setText(str(num1))    
+def plus():
+    global phase
+    phase = 2
+    global action
+    action = 'plus'
+    label.setText('')
+    print(num1)
+def ravno():
+    global num2
+    global num1
+    global phase
+    phase = 1
+    print(num2)
+    if action == 'plus':
+        result = int(num1) + int(num2)
+        label.setText(str(result))
+        num1 = ''
+        num2 = ''
+
+
+
+
 
 
 but_1.clicked.connect(one)
+but_2.clicked.connect(two)
+but_3.clicked.connect(three)
+but_4.clicked.connect(four)
+but_5.clicked.connect(five)
+but_6.clicked.connect(six)
+but_7.clicked.connect(seven)
+but_8.clicked.connect(eight)
+but_9.clicked.connect(nine)
+but_0.clicked.connect(zero)
+but_del.clicked.connect(delete)
+but_plus.clicked.connect(plus)
+but_ravno.clicked.connect(ravno)
 
 win.setLayout(main_layout)
 win.show()
