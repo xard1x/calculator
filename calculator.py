@@ -131,8 +131,9 @@ def number(a):
         else:
             num1 += a
             label.setText(str(num1))
-            if len(num1) >= 10:
+            if len(num1) >= 8:
                 num1 = num1[:-1]
+                label.setText(str(num1))
     if phase == 2:    
         if num2 == '':
             num2 = a
@@ -140,8 +141,9 @@ def number(a):
         else:
             num2 += a
             label.setText(str(num2))
-            if len(num2) >= 10:
+            if len(num2) >= 8:
                 num2 = num2[:-1]
+                label.setText(str(num2))
 def one():
     number('1')
 def two():
@@ -187,11 +189,16 @@ def ravno():
     phase = 1
     print(num2)
     if action == 'plus':
+        if num1 == '': 
+            num1 = 0
+        if num2 == '': 
+            num2 = 0
+            label.setText('')
         result = int(num1) + int(num2)
         label.setText(str(result))
         num1 = ''
         num2 = ''
-
+        
 
 
 
