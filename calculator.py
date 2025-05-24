@@ -86,14 +86,14 @@ lay6.addWidget(but_3)
 lay6.addWidget(but_plus)
 main_layout.addLayout(lay6)
 
-but_sign = QPushButton('+/-')
-but_sign.setFont(QFont('Arial', 15))
+but_nt = QPushButton('NXT')
+but_nt.setFont(QFont('Arial', 15))
 but_0 = QPushButton('0')
 but_0.setFont(QFont('Arial', 15))
 but_ravno = QPushButton('=')
 but_ravno.setFont(QFont('Arial', 15))
 lay7 = QHBoxLayout()
-lay7.addWidget(but_sign)
+lay7.addWidget(but_nt)
 lay7.addWidget(but_0)
 lay7.addWidget(but_ravno)
 main_layout.addLayout(lay7)
@@ -176,6 +176,7 @@ def ravno():
     global num2
     global num1
     global phase
+    global result
     phase = 1
     if action == 'plus':
         if num1 == '': 
@@ -264,15 +265,13 @@ def koren():
     global action
     action = 'koren'
     ravno()
-def sign():
+def nxt():
+    global result
     global num1
-    global num2
-    if phase == 1:
-        num1 = int(num1) * -1
-        label.setText(str(num1))
-    if phase == 2:
-        num2 = int(num2) * -1
-        label.setText(str(num2))
+    num1 = result
+    label.setText(str(num1))
+    
+    
 def c():
     global num1
     global num2
@@ -306,7 +305,7 @@ but_umn.clicked.connect(umnojenie)
 but_razdel.clicked.connect(delenie)
 but_x2.clicked.connect(stepen)
 but_kor.clicked.connect(koren)
-but_sign.clicked.connect(sign)
+but_nt.clicked.connect(nxt)
 but_c.clicked.connect(c)
 but_proc.clicked.connect(procent)
 but_ravno.clicked.connect(ravno)
